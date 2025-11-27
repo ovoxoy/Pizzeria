@@ -42,37 +42,34 @@ export const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose, cart, onU
         return; 
     }
 
-    // --- WHATSAPP NACHRICHT GENERIEREN ---
+    // --- WHATSAPP NACHRICHT GENERIEREN (Mit direkten Emojis) ---
     
-    let txt = `👋 *Hallo Pizzeria da Massimo!*\n\n`;
-    txt += `Ich möchte gerne bestellen:\n\n`;
+    let txt = `🍕 *NEUE BESTELLUNG* 🍕\n\n`;
     
-    txt += `🛒 *BESTELLUNG*\n`;
-    txt += `------------------\n`;
+    txt += `👤 *Kunde:*\n${details.name}\n`;
+    txt += `📍 *Adresse:*\n${details.address}\n`;
+    
+    if (details.note) {
+        txt += `📝 *Notiz:*\n${details.note}\n`;
+    }
+    
+    txt += `\n🛒 *BESTELLUNG:*\n`;
     
     let cartTotal = 0;
     cart.forEach(i => {
         const sub = i.price * i.qty;
-        // Format: "2x Pizza Salami (18,00 €)"
-        txt += `${i.qty}x ${i.name} (${sub.toFixed(2).replace('.',',')} €)\n`;
+        // Format: ▫️ 2x Pizza Salami (18,00 €)
+        txt += `▫️ ${i.qty}x ${i.name} (${sub.toFixed(2).replace('.',',')} €)\n`;
         cartTotal += sub;
     });
     
-    txt += `------------------\n`;
-    txt += `💶 *GESAMT: ${cartTotal.toFixed(2).replace('.',',')} €*\n\n`;
-    
-    txt += `👤 *MEINE DATEN*\n`;
-    txt += `Name: ${details.name}\n`;
-    txt += `Adresse: ${details.address}\n`;
-    
-    if (details.note) {
-        txt += `📝 Notiz: ${details.note}\n`;
-    }
-    
-    txt += `💰 Zahlung: ${details.paymentMethod === 'paypal' ? 'PayPal (Online)' : 'Barzahlung'}\n\n`;
-    txt += `Vielen Dank! 🍕`;
+    txt += `\n💶 *GESAMT: ${total.toFixed(2).replace('.',',')} €*\n`;
+    txt += `💰 *Zahlung:* ${details.paymentMethod === 'paypal' ? 'PayPal (Online)' : 'Barzahlung 💵'}\n`;
+    txt += `--------------------------------\n`;
+    txt += `Vielen Dank! 🙏`;
 
-    const url = `https://wa.me/${APP_CONFIG.whatsappNumber}?text=${encodeURIComponent(txt)}`;
+    // VERBESSERTE URL STRUKTUR
+    const url = `https://api.whatsapp.com/send?phone=${APP_CONFIG.whatsappNumber}&text=${encodeURIComponent(txt)}`;
     window.open(url, '_blank');
   };
 
