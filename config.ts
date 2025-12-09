@@ -12,7 +12,7 @@ export const APP_CONFIG = {
 export const PAYPAL_CONFIG = {
   // Schalter: Setze auf 'true', um PayPal im Checkout zu aktivieren.
   // Aktuell auf 'false' gesetzt ("ausgeklammert"), damit es vorbereitet aber unsichtbar ist.
-  enabled: true, 
+  enabled: false, 
 
   // HIER DEINE PAYPAL DATEN EINTRAGEN:
   // Die "Client ID" findest du im PayPal Developer Dashboard unter "Apps & Credentials".

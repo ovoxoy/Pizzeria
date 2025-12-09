@@ -10,8 +10,6 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WelcomeSection } from './components/WelcomeSection';
 
-const heroImage = `${import.meta.env.BASE_URL}titelbild.png`;
-
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -89,8 +87,9 @@ const App: React.FC = () => {
       <div className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-white text-center px-4 overflow-hidden bg-brand-dark">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10" />
         
+        {/* Using Unsplash Image to ensure it loads on Vercel without 'public' folder setup issues */}
         <img 
-          src={heroImage} 
+          src="/titelbild.jpg"
           alt="Pizzeria da Massimo" 
           className="absolute inset-0 w-full h-full object-cover scale-105"
           fetchPriority="high"
